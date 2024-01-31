@@ -10,8 +10,8 @@ The provided functions are only for reference, you do not need to use them.
 You will need to complete the take_photo() function and configure the VARIABLES section
 """
 
-#AUTHOR: 
-#DATE:
+#AUTHOR: Jeremy Wang
+#DATE: 1/30/24
 
 #import libraries
 import time
@@ -19,7 +19,7 @@ import board
 from adafruit_lsm6ds.lsm6dsox import LSM6DSOX as LSM6DS
 from adafruit_lis3mdl import LIS3MDL
 from git import Repo
-from picamera2 import Picamera2
+from picamera2  import Picamera2
 
 #VARIABLES
 THRESHOLD = 0      #Any desired value from the accelerometer
@@ -71,14 +71,12 @@ def take_photo():
     """
     while True:
         accelx, accely, accelz = accel_gyro.acceleration
-
-        #CHECKS IF READINGS ARE ABOVE THRESHOLD
-            #PAUSE
-            #name = ""     #First Name, Last Initial  ex. MasonM
+        if accelx or accely or accelz > THRESHOLD:
+            time.sleep(1)
+            name = img_gen("FlatSatMassBuilders")     #First Name, Last Initial  ex. MasonM
             #TAKE PHOTO
-            #PUSH PHOTO TO GITHUB
-        
-        #PAUSE
+            git_push()
+        time.sleep(1)
 
 
 def main():
