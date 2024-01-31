@@ -10,7 +10,7 @@ The provided functions are only for reference, you do not need to use them.
 You will need to complete the take_photo() function and configure the VARIABLES section
 """
 
-#AUTHOR: Jeremy Wang
+#AUTHOR: Jeremy Wang, Yuanheng Mao
 #DATE: 1/30/24
 
 #import libraries
