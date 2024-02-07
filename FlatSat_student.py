@@ -30,6 +30,9 @@ FOLDER_PATH = "/images"   #Your image folder path in your GitHub repo: ex. /Imag
 i2c = board.I2C()
 accel_gyro = LSM6DS(i2c)
 mag = LIS3MDL(i2c)
+picam2 = Picamera2()
+config = picam2.create_preview_configuration()
+picam2.configure(config)
 
 def git_push():
     """
@@ -63,9 +66,6 @@ def img_gen(name):
 
 """
 def take_photo():
-    picam2 = Picamera2()
-    camera_config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
-    picam2.configure(camera_config)
     while True:
         accelx, accely, accelz = accel_gyro.acceleration
         if accelx or accely or accelz > THRESHOLD:
