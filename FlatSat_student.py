@@ -30,9 +30,10 @@ FOLDER_PATH = "/images"   #Your image folder path in your GitHub repo: ex. /Imag
 i2c = board.I2C()
 accel_gyro = LSM6DS(i2c)
 mag = LIS3MDL(i2c)
-picam2 = Picamera2()
+picam2 = Picamera2(0)
 config = picam2.create_preview_configuration()
 picam2.configure(config)
+
 
 def git_push():
     """
@@ -64,7 +65,7 @@ def img_gen(name):
     imgname = (f'{REPO_PATH}/{FOLDER_PATH}/{name}{t}.jpg')
     return imgname
 
-"""
+
 def take_photo():
     while True:
         accelx, accely, accelz = accel_gyro.acceleration
@@ -74,9 +75,10 @@ def take_photo():
             picam2.start()
             time.sleep(2)
             picam2.capture_file(name) # takes img and saves it as the name specified above
+            picam2.stop()
             git_push()
         time.sleep(1)
-"""
+
 
 def main():
     take_photo()
