@@ -22,7 +22,7 @@ from git import Repo
 from picamera2  import Picamera2
 
 #VARIABLES
-THRESHOLD = 3      #Any desired value from the accelerometer
+THRESHOLD = 0.01      #Any desired value from the accelerometer
 REPO_PATH = ""     #Your github repo path: ex. /home/pi/FlatSatChallenge
 FOLDER_PATH = ""   #Your image folder path in your GitHub repo: ex. /Images
 
@@ -31,7 +31,8 @@ i2c = board.I2C()
 accel_gyro = LSM6DS(i2c)
 mag = LIS3MDL(i2c)
 picam2 = Picamera2()
-
+camera_config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
+picam2.configure(camera_config)
 
 def git_push():
     """
@@ -74,7 +75,9 @@ def take_photo():
         if accelx or accely or accelz > THRESHOLD:
             time.sleep(1)
             name = img_gen("FlatSatMassBuilders")     #First Name, Last Initial  ex. MasonM
-            #TAKE PHOTO
+            picam2.start()
+            time.sleep(2)
+            picam2.capture_file(name) # takes img and saves it as the name specified above
             git_push()
         time.sleep(1)
 
