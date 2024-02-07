@@ -30,9 +30,6 @@ FOLDER_PATH = "/images"   #Your image folder path in your GitHub repo: ex. /Imag
 i2c = board.I2C()
 accel_gyro = LSM6DS(i2c)
 mag = LIS3MDL(i2c)
-picam2 = Picamera2()
-camera_config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
-picam2.configure(camera_config)
 
 def git_push():
     """
@@ -64,12 +61,11 @@ def img_gen(name):
     imgname = (f'{REPO_PATH}/{FOLDER_PATH}/{name}{t}.jpg')
     return imgname
 
-
+"""
 def take_photo():
-    """
-    This function is NOT complete. Takes a photo when the FlatSat is shaken.
-    Replace psuedocode with your own code.
-    """
+    picam2 = Picamera2()
+    camera_config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
+    picam2.configure(camera_config)
     while True:
         accelx, accely, accelz = accel_gyro.acceleration
         if accelx or accely or accelz > THRESHOLD:
@@ -80,7 +76,7 @@ def take_photo():
             picam2.capture_file(name) # takes img and saves it as the name specified above
             git_push()
         time.sleep(1)
-
+"""
 
 def main():
     take_photo()
