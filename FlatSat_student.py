@@ -24,7 +24,7 @@ from picamera2  import Picamera2
 #VARIABLES
 THRESHOLD = 1      #Any desired value from the accelerometer
 REPO_PATH = "/home/pi/flatsat/Build-a-CubeSat-Challenge---MassBuilders"     #Your github repo path: ex. /home/pi/FlatSatChallenge
-FOLDER_PATH = "/images"   #Your image folder path in your GitHub repo: ex. /Images
+FOLDER_PATH = "Build-a-CubeSat-Challenge---MassBuilders/images"   #Your image folder path in your GitHub repo: ex. /Images
 
 #imu and camera initialization
 i2c = board.I2C()
@@ -41,7 +41,7 @@ def git_push():
     """
     try:
         repo = Repo(REPO_PATH)
-        origin = repo.remote('origin')
+        origin = repo.remote(name='origin')
         print('added remote')
         origin.pull()
         print('pulled changes')
